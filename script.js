@@ -94,7 +94,7 @@ function wtf () {
 
 	nextBtn.addEventListener('click', function () {
 		let lastCard = document.querySelectorAll('.col-md-4')[5];
-		row.insertAdjacentHTML('afterbegin', `<div class="col-md-4"> ${lastCard.innerHTML} </div>`)
+		row.insertAdjacentHTML('afterbegin', lastCard.outerHTML)
 		row.removeChild(lastCard);
 	});
 };
@@ -109,7 +109,7 @@ function wtfreverse () {
 	prevBtn.addEventListener('click', function (e) {
 		e.preventDefault();
 		let firstCard = document.querySelectorAll('.col-md-4')[0];
-		row.insertAdjacentHTML('beforeend', `<div class="col-md-4"> ${firstCard.innerHTML} </div>`)
+		row.insertAdjacentHTML('beforeend', firstCard.outerHTML)
 		row.removeChild(firstCard);
 	});
 
@@ -118,12 +118,69 @@ wtfreverse ();
 
 
 // Fonctionnalité 9 :
+function deLaMort() {
+
+	let logo = document.getElementsByTagName('strong')[0];
+	let page = document.body.innerHTML;
+	let header = document.getElementsByTagName('header')[0];
+	let main = document.getElementsByTagName('main')[0];
+	let footer = document.getElementsByTagName('footer')[0];
+	let newDiv = document.createElement('div');
+	newDiv.classList.add('col-4');
+	newDiv.insertAdjacentHTML('afterbegin', page);
+	document.body.appendChild(newDiv);
+	newDiv.hidden = true
 
 
+	logo.addEventListener("click", function() {
+
+		window.addEventListener("keydown", checkKeyPress, false);
+
+		function hiddenToggler (onoff) {
+			if (onoff === 'on') {
+				newDiv.hidden = false;
+				header.hidden = true;
+				main.hidden = true;
+				footer.hidden = true;
+			} else if (onoff === 'off') {
+				newDiv.hidden = true;
+				header.hidden = false;
+				main.hidden = false;
+				footer.hidden = false;
+			}
+		};
+
+		function classList (onoff){
+			if (onoff === 'off') {
+				document.body.classList.remove('d-flex');
+				document.body.classList = ''
+			} else {
+				document.body.classList = '';
+				document.body.classList.add('d-flex');
+				document.body.classList.add(`justify-content-${onoff}`);
+			};
+		};
 
 
-    // La fonctionnalité se déclenchera si le logo de la page (JS & Events) est sélectionné et qu'on appuie sur une touche spécifique du clavier.
-    // Si l'utilisateur presse la touche "a", l'ensemble de la page va être condensé sur 4 colonnes Bootstrap à gauche de l'écran.
-    // Si l'utilisateur presse la touche "y", l'ensemble de la page va être condensé sur 4 colonnes Bootstrap au milieu de l'écran.
-    // Si l'utilisateur presse la touche "p", l'ensemble de la page va être condensé sur 4 colonnes Bootstrap à droite de l'écran.
-    // Si l'utilisateur presse la touche "b", tout redevient normal.
+		function checkKeyPress(key) {
+			if (key.keyCode == "65") {
+				classList('start');
+				hiddenToggler('on');
+
+			} else if (key.keyCode == "89") {
+				classList('center');
+				hiddenToggler('on');
+
+			} else if (key.keyCode == "80") {
+				classList('end');
+				hiddenToggler('on');
+
+			} else if (key.keyCode == "66") {
+				classList('off');
+				hiddenToggler('off');
+
+			};
+		};
+	});
+};
+deLaMort();
