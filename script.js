@@ -1,11 +1,10 @@
 // Fonctionnalité 1 :
 function footer() {
 	let footerClick = document.getElementsByTagName('footer')[0];
-	let clickNr = 0;
+	let clickNr = 1;
 
 	footerClick.addEventListener("click", function() {
-		clickNr++;
-		console.log(`Click nr : ${clickNr}`);
+		console.log(`Click nr : ${clickNr++}`);
 	 });
 };
 footer()
@@ -69,11 +68,12 @@ nuclear();
 function mouseOver () {
 	let cards = document.querySelectorAll('.card');
 
-	for(let i = 0; i < cards.length; i++) {
-		let cardText = cards[i].querySelector('.card-text');
-		let cardImg = cards[i].querySelector('.card-img-top');
+	// for(let i = 0; i < cards.length; i++) {
+	for (let card of cards) {
+		let cardText = card.querySelector('.card-text');
+		let cardImg = card.querySelector('.card-img-top');
 
-		cards[i].querySelector('button').addEventListener('mouseover', function () {
+		card.querySelector('button').addEventListener('mouseover', function () {
 			if(cardText.hidden === false) {
 				cardText.hidden = true;
 				cardImg.style.width = '20%';
@@ -82,14 +82,15 @@ function mouseOver () {
 				cardImg.style.width = '100%';
 			}
 		});
+
 	};
 };
-mouseOver();
 
 
-// Fonctionnalité 7 :
+// Fonctionnalité 7 et 8 :
 function wtf () {
 	let nextBtn = document.getElementsByClassName('btn btn-secondary my-2')[0];
+	let prevBtn = document.getElementsByClassName('btn btn-primary my-2')[0];
 	let row = document.getElementsByClassName('row')[1];
 
 	nextBtn.addEventListener('click', function () {
@@ -97,24 +98,18 @@ function wtf () {
 		row.insertAdjacentHTML('afterbegin', lastCard.outerHTML)
 		row.removeChild(lastCard);
 	});
-};
-wtf ();
 
-// Fonctionnalité 8 :
-function wtfreverse () {
-	let prevBtn = document.getElementsByClassName('btn btn-primary my-2')[0];
-	let row = document.getElementsByClassName('row')[1];
-
-
-	prevBtn.addEventListener('click', function (e) {
+		prevBtn.addEventListener('click', function (e) {
 		e.preventDefault();
 		let firstCard = document.querySelectorAll('.col-md-4')[0];
 		row.insertAdjacentHTML('beforeend', firstCard.outerHTML)
 		row.removeChild(firstCard);
 	});
-
 };
-wtfreverse ();
+wtf ();
+mouseOver();
+
+
 
 
 // Fonctionnalité 9 :
